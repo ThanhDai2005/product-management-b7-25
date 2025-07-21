@@ -8,6 +8,8 @@ app.set("view engine", "pug");
 
 const route = require("./routes/client/index.route");
 
+app.use(express.static("public"));
+
 // Routes
 route(app);
 
