@@ -1,6 +1,11 @@
 const express = require("express");
-const app = express();
 require("dotenv").config();
+
+const database = require("./config/database");
+
+database.connect();
+
+const app = express();
 const port = process.env.PORT;
 
 app.set("views", "./views");
