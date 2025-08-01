@@ -59,3 +59,16 @@ module.exports.index = async (req, res) => {
     pagination: objectPagination,
   });
 };
+
+// [PATCH] /admin/products/change-status/:status/:id
+
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Product.updateOne({ _id: id }, { status: status });
+
+  const previousUrl = req.get("referer");
+  res.redirect(previousUrl);
+  // res.redirect("back");
+};
