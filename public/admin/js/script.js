@@ -148,26 +148,21 @@ if (formChangeMulti) {
 
 // End Form Change Multi
 
-// Delete Item
+// Show Alert
 
-const buttonDelete = document.querySelectorAll("[button-delete]");
-if (buttonDelete.length > 0) {
-  const formDeleteItem = document.querySelector("#form-delete-item");
-  const path = formDeleteItem.getAttribute("data-path");
-  buttonDelete.forEach((button) => {
-    button.addEventListener("click", () => {
-      const isConfirm = confirm("Bạn có chắc muốn xóa sản phẩm này?");
-      if (isConfirm) {
-        const id = button.getAttribute("data-id");
+const showAlert = document.querySelector("[show-alert]");
 
-        const action = `${path}/${id}?_method=DELETE`;
+if (showAlert) {
+  const time = showAlert.getAttribute("data-time");
+  const closeAlert = showAlert.querySelector("[close-alert]");
 
-        formDeleteItem.action = action;
+  setTimeout(() => {
+    showAlert.classList.add("alert-hidden");
+  }, parseInt(time));
 
-        formDeleteItem.submit();
-      }
-    });
+  closeAlert.addEventListener("click", () => {
+    showAlert.classList.add("alert-hidden");
   });
 }
 
-// End Delete Item
+// End Show Alert
