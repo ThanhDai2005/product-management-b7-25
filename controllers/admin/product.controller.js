@@ -109,7 +109,7 @@ module.exports.changeMulti = async (req, res) => {
         let [id, position] = item.split("-");
         position = parseInt(position);
 
-        await Product.updateOne({ _id: id }, { position: parseInt(position) });
+        await Product.updateOne({ _id: id }, { position: position });
 
         req.flash(
           "success",
@@ -159,6 +159,8 @@ module.exports.createPost = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position);
   }
+
+  req.body.thumbnail = `/uploads/${req.file.filename}`;
 
   const product = new Product(req.body);
   await product.save();
