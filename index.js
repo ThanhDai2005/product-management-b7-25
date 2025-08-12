@@ -20,7 +20,7 @@ app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded());
 
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 // Flash
@@ -35,7 +35,7 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 const route = require("./routes/client/index.route");
 const routeAdmin = require("./routes/admin/index.route");
 
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 // Routes
 route(app);
