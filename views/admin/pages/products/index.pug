@@ -5,6 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 
 block main
   if(role.permissions.includes("products_view"))
@@ -49,7 +50,8 @@ block main
                 th Tiêu đề 
                 th Giá
                 th Vị trí
-                th Trạng thái 
+                th Trạng thái
+                th Người tạo 
                 th Hành động 
 
             tbody
@@ -66,7 +68,11 @@ block main
                     input(type="number" value=item.position style="width: 60px" min="1" name="position")
                   td 
                     if(role.permissions.includes("products_edit"))
-                      a(href="javascript:;" data-status=item.status data-id=item.id button-change-status class=`badge ${item.status == "active" ? " badge-success" : "badge-danger"}`) #{item.status == "active" ? "Hoạt động" : "Dừng Hoạt động"} 
+                      a(href="javascript:;" data-status=item.status data-id=item.id button-change-status class=`badge ${item.status == "active" ? " badge-success" : "badge-danger"}`) #{item.status == "active" ? "Hoạt động" : "Dừng Hoạt động"}
+                  td 
+                    p #{item.accountFullName}
+                    p
+                      +formatDateTime(item.createdBy.createAt)  
                   td 
                     a(href=`${prefixAdmin}/products/detail/${item.id}` class="btn btn-secondary btn-sm") Chi tiết
                     if(role.permissions.includes("products_edit"))
