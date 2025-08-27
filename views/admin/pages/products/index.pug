@@ -51,7 +51,8 @@ block main
                 th Giá
                 th Vị trí
                 th Trạng thái
-                th Người tạo 
+                th Người tạo
+                th Người cập nhật 
                 th Hành động 
 
             tbody
@@ -72,7 +73,13 @@ block main
                   td 
                     p #{item.accountFullName}
                     p
-                      +formatDateTime(item.createdBy.createAt)  
+                      +formatDateTime(item.createdBy.createAt)
+                  td 
+                    - const updatedBy = item.updatedBy[item.updatedBy.length-1]
+                    if(updatedBy)
+                      p #{updatedBy.accountFullName}
+                      p
+                        +formatDateTime(updatedBy.updatedAt)  
                   td 
                     a(href=`${prefixAdmin}/products/detail/${item.id}` class="btn btn-secondary btn-sm") Chi tiết
                     if(role.permissions.includes("products_edit"))

@@ -12,6 +12,8 @@ const authRoutes = require("./auth.route");
 module.exports = (app) => {
   const PATH_ADMIN = systemConfig.prefixAdmin;
 
+  app.get(PATH_ADMIN, authMiddleware.redirectAdmin);
+
   app.use(
     PATH_ADMIN + "/dashboard",
     authMiddleware.requireAuth,
