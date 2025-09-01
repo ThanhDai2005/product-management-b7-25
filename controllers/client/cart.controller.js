@@ -20,7 +20,7 @@ module.exports.addPost = async (req, res) => {
     await Cart.updateOne(
       {
         _id: cartId,
-        "products.product_i": productId,
+        "products.product_id": productId,
       },
       {
         "products.$.quantity": newQuantity,
