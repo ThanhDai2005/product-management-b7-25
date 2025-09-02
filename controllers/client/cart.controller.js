@@ -85,3 +85,31 @@ module.exports.addPost = async (req, res) => {
   const previousUrl = req.get("referer");
   res.redirect(previousUrl);
 };
+
+// [GET] /cart/delete/:productId
+module.exports.delete = async (req, res) => {
+  const productId = req.params.productId;
+
+  const cartId = req.cookies.cartId;
+
+  console.log(productId);
+
+  await Cart.updateOne(
+    {
+      _id: cartId,
+    },
+    {
+      $pull: {
+        products: {
+          product_id: productId,
+        },
+      },
+    }
+  );
+
+  req.flash("success", "Đã xóa sản phẩm khỏi giỏ hàng!");
+
+  const previousUrl = req.get("referer");
+
+  res.redirect(previousUrl);
+};
