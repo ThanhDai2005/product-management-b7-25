@@ -7,6 +7,8 @@ const session = require("express-session");
 const flash = require("express-flash");
 const moment = require("moment");
 require("dotenv").config();
+const http = require("http");
+const { Server } = require("socket.io");
 
 const database = require("./config/database");
 
@@ -24,6 +26,14 @@ app.use(bodyParser.urlencoded());
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
+
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+  console.log("a user connected", socket.id);
+});
 
 // Flash
 app.use(cookieParser("ABCDEFGH"));
@@ -56,6 +66,6 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
