@@ -11,10 +11,12 @@ const authRoutes = require("./auth.route");
 const myAccountRoutes = require("./my-account.route");
 const settingRoutes = require("./settings.route");
 
+const authController = require("../../controllers/admin/auth.controller");
+
 module.exports = (app) => {
   const PATH_ADMIN = systemConfig.prefixAdmin;
 
-  app.get(PATH_ADMIN, authMiddleware.redirectAdmin);
+  app.get(PATH_ADMIN, authController.login);
 
   app.use(
     PATH_ADMIN + "/dashboard",
