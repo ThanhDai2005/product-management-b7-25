@@ -8,20 +8,22 @@ block main
 
     .row 
       .col-12 
-        +box-head("Lời mời đã gửi")
+        +box-head("Lời mời đã nhận")
 
 
     .row 
       each user in users
         .col-6 
-          div(class="box-user add")
+          div(class="box-user")
             div(class="inner-avatar")
               img(src=(user.avatar ? user.avatar : "/images/avatar.jpg"), alt=user.fullName)
             div(class="inner-info")
               div(class="inner-name") #{user.fullName} 
               div(class="inner-buttons")
-                button(class="mr-1 btn btn-sm btn-primary" btn-add-friend=user.id ) Kết bạn
-                button(class="mr-1 btn btn-sm btn-secondary" btn-cancel-friend=user.id) Hủy 
+                button(class="mr-1 btn btn-sm btn-primary" btn-refuse-friend=user.id ) Chấp nhận
+                button(class="mr-1 btn btn-sm btn-secondary" btn-refuse-friend=user.id ) Xóa
+                button(class="mr-1 btn btn-sm btn-secondary" btn-deleted-friend
+                =user.id disable ) Đã xóa
             
 
 
