@@ -68,3 +68,48 @@ socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
   }
 });
 // End SERVER_RETURN_LENGTH_ACCEPT_FRIEND;
+
+// SERVER_RETURN_INFO_ACCEPT_FRIEND
+socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+  const badgeUsersAccept = document.querySelector("[badge-users-accept]");
+  const userId = badgeUsersAccept.getAttribute("badge-users-accept");
+  if (data.userId == userId) {
+    // Vẽ user ra giao diện
+    const dataUserAccept = document.querySelector("[data-users-accept]");
+    const newBoxUser = document.createElement("div");
+    newBoxUser.classList.add("col-6");
+
+    newBoxUser.innerHTML = `
+      <div class="box-user">
+        <div class="inner-avatar">
+          <img src="/images/avatar.jpg" alt="${data.infoUserA.fullName}">
+        </div>
+        <div class="inner-info">
+          <div class="inner-name">${data.infoUserA.fullName}</div>
+          <div class="inner-buttons">
+            <button class="mr-1 btn btn-sm btn-primary" btn-accept-friend=${data.infoUserA._id}>Chấp nhận</button>
+            <button class="mr-1 btn btn-sm btn-secondary" btn-refuse-friend=${data.infoUserA._id}>Xóa</button>
+            <button class="mr-1 btn btn-sm btn-secondary" btn-deleted-friend="" disabled>Đã xóa</button>
+            <button class="mr-1 btn btn-sm btn-primary" btn-accepted-friend="" disabled>Đã chấp nhận</button>
+          </div>
+        </div>
+      </div>    
+    `;
+
+    dataUserAccept.appendChild(newBoxUser);
+    // Hết Vẽ user ra giao diện
+
+    // Xóa lời mời kết bạn
+    const btnRefusedFriend = document.querySelector("[btn-refuse-friend]");
+    btnRefusedFriend.addEventListener("click", () => {
+      btnRefusedFriend.closest(".box-user").classList.add("refuse");
+
+      const userId = button.getAttribute("btn-refuse-friend");
+
+      socket.emit("CLIENT_REFUSE_FRIEND", userId);
+    });
+
+    // Hết Xóa lời mời kết bạn
+  }
+});
+// End SERVER_RETURN_LENGTH_ACCEPT_FRIEND
