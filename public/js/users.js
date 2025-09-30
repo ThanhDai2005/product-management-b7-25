@@ -71,13 +71,13 @@ socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
 
 // SERVER_RETURN_INFO_ACCEPT_FRIEND
 socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
-  const badgeUsersAccept = document.querySelector("[badge-users-accept]");
-  const userId = badgeUsersAccept.getAttribute("badge-users-accept");
+  const dataUserAccept = document.querySelector("[data-users-accept]");
+  const userId = dataUserAccept.getAttribute("data-users-accept");
   if (data.userId == userId) {
     // Vẽ user ra giao diện
-    const dataUserAccept = document.querySelector("[data-users-accept]");
     const newBoxUser = document.createElement("div");
     newBoxUser.classList.add("col-6");
+    newBoxUser.setAttribute("user-id", data.infoUserA._id);
 
     newBoxUser.innerHTML = `
       <div class="box-user">
@@ -123,3 +123,19 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
   }
 });
 // End SERVER_RETURN_LENGTH_ACCEPT_FRIEND
+
+// SERVER_RETURN_USER_TO_CANCEL_ACCEPT_FRIEND
+socket.on("SERVER_RETURN_USER_TO_CANCEL_ACCEPT_FRIEND", (data) => {
+  const dataUserAccept = document.querySelector("[data-users-accept]");
+  const userId = dataUserAccept.getAttribute("data-users-accept");
+  if (data.userId == userId) {
+    // Xóa A khỏi danh sách của B
+    const boxUserRemove = dataUserAccept.querySelector(
+      `[user-id="${data.userIdA}"]`
+    );
+    if (boxUserRemove) {
+      dataUserAccept.removeChild(boxUserRemove);
+    }
+  }
+});
+// End SERVER_RETURN_USER_TO_CANCEL_ACCEPT_FRIEND
